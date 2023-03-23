@@ -1,0 +1,20 @@
+server:
+  address: 0.0.0.0
+  port: 8085
+
+spring:
+  application:
+    name: adapter-from-cmss
+
+amq:
+  broker-url: failover:(amqp://localhost:5672)?failover.maxReconnectAttempts=3&failover.reconnectDelay=5000&failover.useReconnectBackOff=false
+  max-connections: 1
+  password: admin
+  username: admin
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- %replace([traceId:%X{traceId:-none}]){'traceId:none', ''} %logger : %replace(%m){'[\r\n]', ''}%n%wEx"
+  level:
+    org.springframework: DEBUG
+    org.apache.camel: DEBUG
